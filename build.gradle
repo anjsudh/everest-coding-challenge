@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
 group 'com.courier'
@@ -14,13 +13,20 @@ repositories {
 }
 
 dependencies {
+    // JUnit 4 for unit testing
     testImplementation 'junit:junit:4.13.2'
 }
 
-test {
-    useJUnitPlatform()
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
-application {
-    mainClass.set('com.courier.Main')  // Replace with your main class
+task run(type: JavaExec) {
+    main = 'com.courier.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['100', 'PKG1', '5', '5']
+}
+
+test {
+    useJUnit()
 }

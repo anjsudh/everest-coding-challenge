@@ -1,4 +1,4 @@
-name: CI and Run Main Program
+name: CI
 
 on:
   push:
@@ -12,14 +12,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: gradle:8.1-jdk17  # Docker image with Gradle and JDK 17
+      image: gradle:8.1-jdk17 
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Build with Gradle
-      run: gradle build
+      run: gradle compileJava
 
     - name: Upload code artifact
       uses: actions/upload-artifact@v3
@@ -39,10 +39,6 @@ jobs:
       with:
         name: artifact
 
-    - name: Checkout code
-      uses: actions/checkout@v3
-      if: ${{ always() }}  # Ensure this step runs even if the previous step fails
-
     - name: Run tests
       run: gradle test
 
@@ -60,3 +56,5 @@ jobs:
 
     - name: Run Main Program
       run: gradle run
+      env:
+        JAVA_OPTS: "-Dfile.encoding=UTF-8"
