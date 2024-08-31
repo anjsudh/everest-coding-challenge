@@ -1,0 +1,62 @@
+name: CI and Run Main Program
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: gradle:8.1-jdk17  # Docker image with Gradle and JDK 17
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build with Gradle
+      run: gradle build
+
+    - name: Upload code artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifact
+        path: .  # Upload the entire repository
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: gradle:8.1-jdk17  # Docker image with Gradle and JDK 17
+    needs: build  # Ensures this job runs only after the build job completes
+
+    steps:
+    - name: Download code artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: artifact
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      if: ${{ always() }}  # Ensure this step runs even if the previous step fails
+
+    - name: Run tests
+      run: gradle test
+
+  run-main:
+    runs-on: ubuntu-latest
+    container:
+      image: gradle:8.1-jdk17  # Docker image with Gradle and JDK 17
+    needs: build  # Ensure this job only runs after the build job completes
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: artifact
+
+    - name: Run Main Program
+      run: gradle run
