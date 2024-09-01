@@ -13,19 +13,21 @@ repositories {
 }
 
 dependencies {
-    // JUnit 4 for unit testing
-    testImplementation 'junit:junit:4.13.2'
+    // JUnit 5 dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task run(type: JavaExec) {
+task runApp(type: JavaExec) {
     main = 'com.courier.Main'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['100', 'PKG1', '5', '5']
+    standardInput = new FileInputStream('input.txt')
 }
+
 
 test {
     useJUnit()

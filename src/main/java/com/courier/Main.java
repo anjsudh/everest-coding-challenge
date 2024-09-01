@@ -1,20 +1,27 @@
 package com.courier;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Main {
-
     public static void main(String[] args) {
-        try {
-            String name = args[0];
-            double baseCost = Double.parseDouble(args[1]);
-            double weight = Double.parseDouble(args[2]);
-            double distance = Double.parseDouble(args[3]);
-            Package pkg = new Package(name, weight, distance);
-            Delivery delivery = new Delivery(baseCost, pkg);
-            double totalCost = delivery.calculateTotalCost();
-            System.out.printf("'%s' $%.2f%n", name, totalCost);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            PricingService pricingService = new PricingService();
 
+            Delivery delivery = DeliveryFactory.createDelivery(reader);
+            DeliveryPrice deliveryPrice = pricingService.calculatePrice(delivery);
+            
+            deliveryPrice
+            .getPackagePrices()
+            .forEach(pkgPrice ->
+                System.out.println(pkgPrice)
+            );
+
+        } catch (IOException e) {
+            System.err.println("Error reading input: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please provide numeric values for weight and distance.");
+            System.err.println("Invalid number format: " + e.getMessage());
         }
     }
 }

@@ -1,23 +1,41 @@
 package com.courier;
 
-public class Delivery {
-    private double baseCost = 100.0; // Base cost for delivery
-    private Package pkg;
+import java.util.List;
+import java.util.Objects;
 
-    public Delivery(double baseCost, Package pkg) {
+public class Delivery {
+    private final List<Package> packages;
+    private final double baseCost;
+
+    public Delivery(List<Package> packages, double baseCost) {
+        this.packages = packages;
         this.baseCost = baseCost;
-        this.pkg = pkg;
     }
 
+    public List<Package> getPackages() {
+        return packages;
+    }
 
-    /**
-     * Calculates the total cost of delivery.
-     * 
-     * @return the total cost of delivery
-     */
-    public double calculateTotalCost() {
-        double weightCost = pkg.getWeight() * 10; // Cost per weight unit
-        double distanceCost = pkg.getDistance() * 5; // Cost per distance unit
-        return baseCost + weightCost + distanceCost;
+    public double getBaseCost() {
+        return baseCost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Delivery delivery = (Delivery) o;
+        return Double.compare(delivery.baseCost, baseCost) == 0 &&
+               packages.equals(delivery.packages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(packages, baseCost);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Delivery{baseCost=%.1f, packages=%s}", baseCost, packages);
     }
 }
