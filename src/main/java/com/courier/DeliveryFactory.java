@@ -1,8 +1,5 @@
 package com.courier;
 
-import com.courier.Package;
-import com.courier.PricingService;
-import com.courier.Delivery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +22,9 @@ public class DeliveryFactory {
             String packageId = packageDetails[0];
             double weight = Double.parseDouble(packageDetails[1]);
             double distance = Double.parseDouble(packageDetails[2]);
+            String offerCode = packageDetails.length > 3 ? packageDetails[3] : null; // Read offer code if available
 
-            Package pkg = new Package(packageId, weight, distance);
+            Package pkg = new Package(packageId, weight, distance, offerCode);
             packages.add(pkg);
         }
 

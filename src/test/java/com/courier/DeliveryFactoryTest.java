@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeliveryFactoryTest {
 
     @Test
-    public void shouldParseInputAndCreateDelivery() {
+    public void shouldParseInputWithoutOfferCode() {
         String input = """
                         100 3
                         PKG1 5 5
@@ -32,9 +32,9 @@ public class DeliveryFactoryTest {
 
             double expectedBaseCost = 100.0;
             List<Package> expectedPackages = List.of(
-                new Package("PKG1", 5, 5),
-                new Package("PKG2", 15, 5),
-                new Package("PKG3", 10, 100)
+                new Package("PKG1", 5, 5, null),
+                new Package("PKG2", 15, 5, null),
+                new Package("PKG3", 10, 100, null)
             );
 
             Delivery expectedDelivery = new Delivery(expectedPackages, expectedBaseCost);
@@ -43,6 +43,34 @@ public class DeliveryFactoryTest {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void shouldParseInputWithOfferCode() throws IOException {
+        String input = """
+                        100 3
+                        PKG1 5 5 OFR001
+                        PKG2 15 5 OFR002
+                        PKG3 10 100 OFR003
+                        """;
+
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            Delivery actualDelivery = DeliveryFactory.createDelivery(reader);
+
+            double expectedBaseCost = 100.0;
+            List<Package> expectedPackages = List.of(
+                new Package("PKG1", 5, 5, "OFR001"),
+                new Package("PKG2", 15, 5, "OFR002"),
+                new Package("PKG3", 10, 100, "OFR003")
+            );
+
+            Delivery expectedDelivery = new Delivery(expectedPackages, expectedBaseCost);
+
+            assertEquals(expectedDelivery, actualDelivery);
         }
     }
 }
