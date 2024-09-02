@@ -17,13 +17,15 @@ public class PricingService {
         for (Package pkg : delivery.getPackages()) {
             double baseCost = delivery.getBaseCost() + (pkg.getWeight() * 10) + (pkg.getDistance() * 5);
             double discountedCost = baseCost;
+            double discount = 0d;
 
             OfferStrategy offer = offerMap.get(pkg.getOfferCode());
             if (offer != null && offer.isApplicable(pkg)) {
                 discountedCost = offer.applyDiscount(baseCost);
+                discount = baseCost - discountedCost;
             }
 
-            packagePrices.add(new PackagePrice(pkg, discountedCost));
+            packagePrices.add(new PackagePrice(pkg, discountedCost, discount));
         }
         return new DeliveryPrice(packagePrices);
     }

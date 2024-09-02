@@ -31,7 +31,7 @@ public class PricingServiceTest {
         DeliveryPrice actualDeliveryPrice = pricingService.calculatePrice(delivery);
 
         DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of(
-            new PackagePrice(packages.get(0), 175.0)
+            new PackagePrice(packages.get(0), 175.0, 0.0)
         ));
         assertEquals(expectedDeliveryPrice, actualDeliveryPrice);
     }
@@ -57,9 +57,9 @@ public class PricingServiceTest {
         DeliveryPrice actualDeliveryPrice = pricingService.calculatePrice(delivery);
 
         DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of(
-            new PackagePrice(packages.get(0), 175.0),  
-            new PackagePrice(packages.get(1), 275.0),
-            new PackagePrice(packages.get(2), 700.0) 
+            new PackagePrice(packages.get(0), 175.0, 0.0),  
+            new PackagePrice(packages.get(1), 275.0, 0.0),
+            new PackagePrice(packages.get(2), 700.0, 0.0) 
         ));
         assertEquals(expectedDeliveryPrice, actualDeliveryPrice);
     }
@@ -78,7 +78,7 @@ public class PricingServiceTest {
         Delivery delivery = new Delivery(List.of(pkg), 100);
         DeliveryPrice actualDeliveryPrice = pricingService.calculatePrice(delivery);
 
-        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg, 1215) )); 
+        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg, 1215, 0.0) )); 
         assertEquals(expectedDeliveryPrice, actualDeliveryPrice);
     }
 
@@ -94,7 +94,7 @@ public class PricingServiceTest {
         Delivery delivery = new Delivery(List.of(pkg), 100);
         DeliveryPrice actualDeliveryPrice = pricingService.calculatePrice(delivery);
 
-        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg,1100) )); 
+        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg, 1100, 0.0) )); 
         assertEquals(expectedDeliveryPrice, actualDeliveryPrice);
 
     }
@@ -111,7 +111,7 @@ public class PricingServiceTest {
         Delivery delivery = new Delivery(List.of(pkg), 100);
         DeliveryPrice actualDeliveryPrice = pricingService.calculatePrice(delivery);
 
-        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg,1350) )); 
+        DeliveryPrice expectedDeliveryPrice = new DeliveryPrice(List.of( new PackagePrice(pkg, 1350, 0.0) )); 
         assertEquals(expectedDeliveryPrice, actualDeliveryPrice);
     }
 }
