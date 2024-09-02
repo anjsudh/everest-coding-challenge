@@ -31,11 +31,9 @@ public class PackagePrice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PackagePrice that = (PackagePrice) o;
-        return (
-            Double.compare(that.price, price) == 0 
-            && Objects.equals(pkg, that.pkg)
-            && Double.compare(that.discount, discount) == 0 
-        );
+        return Double.compare(that.price, price) == 0
+                && Double.compare(that.discount, discount) == 0
+                && pkg.equals(that.pkg);
     }
 
     @Override
@@ -45,10 +43,7 @@ public class PackagePrice {
 
     @Override
     public String toString() {
-        return pkg.getId() + " " 
-        + new DecimalFormat("#.##").format(discount)+ " " 
-        + new DecimalFormat("#.##").format(price);
-        
-        // String.format("%s %.1f %.1f", pkg.getId(), discount, price);
+        DecimalFormat df = new DecimalFormat("#.##");
+        return String.format("%s %.2f %.2f", pkg.getId(), discount, price);
     }
 }
