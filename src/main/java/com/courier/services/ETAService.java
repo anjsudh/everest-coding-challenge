@@ -2,10 +2,12 @@ package com.courier.services;
 
 import com.courier.models.Delivery;
 import com.courier.models.DeliveryETA;
+import com.courier.models.KnapsackItem;
 import com.courier.models.Package;
 import com.courier.models.PackageETA;
 import com.courier.models.Shipment;
 import com.courier.models.Vehicle;
+import com.courier.utils.KnapsackSolver;
 import com.courier.utils.MathUtils;
 
 import java.util.ArrayList;
@@ -52,44 +54,15 @@ public class ETAService {
     }
 
     private List<Package> selectPackagesForVehicle(Vehicle vehicle, List<Package> packages) {
-        List<Package> sortedPackages = new ArrayList<>(packages);
-        sortedPackages.sort(Comparator.comparingDouble(Package::getWeight).reversed()
-                .thenComparingDouble(Package::getDistance));
+        List<KnapsackItem> knapsackItems = packages.stream()
+                .map(pkg -> (KnapsackItem) pkg)  // Casting Package to KnapsackItem
+                .collect(Collectors.toList());
+        int knapsackCapacity = (int) Math.floor(vehicle.getCapacity());
+        List<KnapsackItem> selectedItems = KnapsackSolver.selectItemsForKnapsack(knapsackItems, knapsackCapacity);
 
-        int maxCapacity = (int) Math.floor(vehicle.getCapacity());
-
-        double[][] dp = new double[sortedPackages.size() + 1][maxCapacity + 1];
-        boolean[][] keep = new boolean[sortedPackages.size() + 1][maxCapacity + 1];
-
-        for (int i = 1; i <= sortedPackages.size(); i++) {
-            Package pkg = sortedPackages.get(i - 1);
-            int weight = (int) Math.floor(pkg.getWeight());
-            for (int w = 0; w <= maxCapacity; w++) {
-                if (weight <= w) {
-                    if (dp[i - 1][w] < dp[i - 1][w - weight] + weight) {
-                        dp[i][w] = dp[i - 1][w - weight] + weight;
-                        keep[i][w] = true;
-                    } else {
-                        dp[i][w] = dp[i - 1][w];
-                    }
-                } else {
-                    dp[i][w] = dp[i - 1][w];
-                }
-            }
-        }
-
-        List<Package> selectedPackages = new ArrayList<>();
-        int w = maxCapacity;
-        for (int i = sortedPackages.size(); i > 0; i--) {
-            if (keep[i][w]) {
-                selectedPackages.add(sortedPackages.get(i - 1));
-                w -= (int) Math.floor(sortedPackages.get(i - 1).getWeight());
-            }
-        }
-
-        Collections.reverse(selectedPackages);
-
-        return selectedPackages;
+        return selectedItems.stream()
+                .map(item -> (Package) item)
+                .collect(Collectors.toList());
     }
 
 }

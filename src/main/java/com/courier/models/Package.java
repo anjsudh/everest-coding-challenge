@@ -2,7 +2,7 @@ package com.courier.models;
 
 import java.util.Objects;
 
-public class Package {
+public class Package implements KnapsackItem {
     private final String id;
     private final double weight;
     private final double distance;
@@ -19,8 +19,9 @@ public class Package {
         return id;
     }
 
-    public double getWeight() {
-        return weight;
+    @Override
+    public int getWeight() {
+        return (int) weight;
     }
 
     public double getDistance() {
@@ -50,5 +51,10 @@ public class Package {
     @Override
     public String toString() {
         return String.format("Package{id='%s', weight=%.1f, distance=%.1f, offerCode='%s'}", id, weight, distance, offerCode);
+    }
+
+    @Override
+    public int getValue() {
+        return (int) weight;
     }
 }
