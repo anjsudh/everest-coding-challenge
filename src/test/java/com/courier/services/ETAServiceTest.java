@@ -48,14 +48,14 @@ public class ETAServiceTest {
 
         // Verify ETAs for each package
         assertTrue(packageETAs.stream().anyMatch(pkgETA ->
-            pkgETA.getPackage().getId().equals("PKG1") && Math.abs(pkgETA.getEta() - 0.43) < 0.01));
+                pkgETA.getPackage().getId().equals("PKG1") && Math.abs(pkgETA.getEta() - 0.43) < 0.01));
         assertTrue(packageETAs.stream().anyMatch(pkgETA ->
-            pkgETA.getPackage().getId().equals("PKG2") && Math.abs(pkgETA.getEta() - 1.79) < 0.01));
+                pkgETA.getPackage().getId().equals("PKG2") && Math.abs(pkgETA.getEta() - 1.79) < 0.01));
         assertTrue(packageETAs.stream().anyMatch(pkgETA ->
-            pkgETA.getPackage().getId().equals("PKG3") && Math.abs(pkgETA.getEta() - 1.43) < 0.01));
+                pkgETA.getPackage().getId().equals("PKG3") && Math.abs(pkgETA.getEta() - 1.43) < 0.01));
         assertTrue(packageETAs.stream().anyMatch(pkgETA ->
-            pkgETA.getPackage().getId().equals("PKG4") && Math.abs(pkgETA.getEta() - 0.86) < 0.01));
+                pkgETA.getPackage().getId().equals("PKG4") && Math.abs(pkgETA.getEta() - 0.86) < 0.01));
         assertTrue(packageETAs.stream().anyMatch(pkgETA ->
-            pkgETA.getPackage().getId().equals("PKG5") && Math.abs(pkgETA.getEta() - 1.36) < 0.01));
+                pkgETA.getPackage().getId().equals("PKG5") && Math.abs(pkgETA.getEta() - 1.36) < 0.01));
     }
 }

@@ -37,9 +37,9 @@ public class Package {
         if (o == null || getClass() != o.getClass()) return false;
         Package pkg = (Package) o;
         return Double.compare(pkg.weight, weight) == 0 &&
-               Double.compare(pkg.distance, distance) == 0 &&
-               Objects.equals(id, pkg.id) &&
-               Objects.equals(offerCode, pkg.offerCode);
+                Double.compare(pkg.distance, distance) == 0 &&
+                Objects.equals(id, pkg.id) &&
+                Objects.equals(offerCode, pkg.offerCode);
     }
 
     @Override

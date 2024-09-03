@@ -22,10 +22,10 @@ public class WeightAndDistanceBasedOffer implements OfferStrategy {
     @Override
     public boolean isApplicable(Package pkg) {
         return (
-            pkg.getDistance() >= minDistance && 
-            pkg.getDistance() <= maxDistance &&
-            pkg.getWeight() >= minWeight && 
-            pkg.getWeight() <= maxWeight
+                pkg.getDistance() >= minDistance &&
+                        pkg.getDistance() <= maxDistance &&
+                        pkg.getWeight() >= minWeight &&
+                        pkg.getWeight() <= maxWeight
         );
     }
 

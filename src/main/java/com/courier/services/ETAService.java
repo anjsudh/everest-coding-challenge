@@ -20,22 +20,23 @@ public class ETAService {
 
     public ETAService(List<Vehicle> vehicles) {
         this.vehicles = new PriorityQueue<Vehicle>(Comparator.comparingDouble(Vehicle::getNextAvailableAt));
-        vehicles.forEach (v -> this.vehicles.add(v));
+        vehicles.forEach(v -> this.vehicles.add(v));
     }
 
     public DeliveryETA estimateForDelivery(Delivery delivery) {
         List<Package> unassignedPackages = new ArrayList<>(delivery.getPackages());
         List<PackageETA> packageETAs = new ArrayList<>();
-        List<Shipment> shipments = new ArrayList<>(); 
+        List<Shipment> shipments = new ArrayList<>();
 
-        while(!unassignedPackages.isEmpty()) {
+        while (!unassignedPackages.isEmpty()) {
             Vehicle vehicle = getNextAvailableVehicle();
             List<Package> packages = selectPackagesForVehicle(vehicle, unassignedPackages);
             double shipmentStartTime = vehicle.getNextAvailableAt();
             vehicle.loadPackages(packages);
-            shipments.add(new Shipment(shipmentStartTime, packages, vehicle));;
-            packages.forEach( p -> {
-                double packageDeliveryTime = MathUtils.floorToTwoDecimalPlaces(p.getDistance()/ vehicle.getSpeed());
+            shipments.add(new Shipment(shipmentStartTime, packages, vehicle));
+            ;
+            packages.forEach(p -> {
+                double packageDeliveryTime = MathUtils.floorToTwoDecimalPlaces(p.getDistance() / vehicle.getSpeed());
                 packageETAs.add(new PackageETA(p, shipmentStartTime + packageDeliveryTime));
             });
             unassignedPackages.removeAll(packages);
@@ -50,7 +51,7 @@ public class ETAService {
         return this.vehicles.poll();
     }
 
-private List<Package> selectPackagesForVehicle(Vehicle vehicle, List<Package> packages) {
+    private List<Package> selectPackagesForVehicle(Vehicle vehicle, List<Package> packages) {
         List<Package> sortedPackages = new ArrayList<>(packages);
         sortedPackages.sort(Comparator.comparingDouble(Package::getWeight).reversed()
                 .thenComparingDouble(Package::getDistance));

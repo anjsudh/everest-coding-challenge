@@ -26,7 +26,7 @@ public class Delivery {
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
         return Double.compare(delivery.baseCost, baseCost) == 0 &&
-               packages.equals(delivery.packages);
+                packages.equals(delivery.packages);
     }
 
     @Override

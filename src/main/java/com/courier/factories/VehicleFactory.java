@@ -27,7 +27,7 @@ public class VehicleFactory {
         double maxCarriableWeight = Double.parseDouble(parts[2]);
 
         for (int i = 0; i < numberOfVehicles; i++) {
-            vehicles.add(new Vehicle(Integer.toString(i+1), maxCarriableWeight, maxSpeed));
+            vehicles.add(new Vehicle(Integer.toString(i + 1), maxCarriableWeight, maxSpeed));
         }
 
         return vehicles;

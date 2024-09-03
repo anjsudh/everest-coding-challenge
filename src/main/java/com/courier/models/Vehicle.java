@@ -1,6 +1,7 @@
 package com.courier.models;
 
 import com.courier.utils.MathUtils;
+
 import java.util.List;
 
 public class Vehicle {

@@ -29,13 +29,13 @@ public class Shipment {
     @Override
     public String toString() {
         String packageDetails = packages.stream()
-            .map(Package::getId)
-            .collect(Collectors.joining(", "));
+                .map(Package::getId)
+                .collect(Collectors.joining(", "));
 
         return String.format("Shipment{startTime=%.2f, vehicle=%s, packages=[%s]}",
-            startTime,
-            vehicle,
-            packageDetails
+                startTime,
+                vehicle,
+                packageDetails
         );
     }
 }

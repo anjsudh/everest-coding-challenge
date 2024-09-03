@@ -57,22 +57,22 @@ public class Main {
 
     private static Map<Package, PackagePrice> createPackagePriceMap(DeliveryPrice deliveryPrice) {
         return deliveryPrice.getPackagePrices().stream()
-            .collect(Collectors.toMap(PackagePrice::getPackage, pp -> pp));
+                .collect(Collectors.toMap(PackagePrice::getPackage, pp -> pp));
     }
 
     private static Map<Package, PackageETA> createPackageETAMap(DeliveryETA deliveryETA) {
         return deliveryETA.getPackageETAs().stream()
-            .collect(Collectors.toMap(PackageETA::getPackage, pe -> pe));
+                .collect(Collectors.toMap(PackageETA::getPackage, pe -> pe));
     }
 
     private static void printPackageDetails(Package pkg, Map<Package, PackagePrice> packagePriceMap, Map<Package, PackageETA> packageETAMap) {
         PackagePrice pkgPrice = packagePriceMap.getOrDefault(pkg, new PackagePrice(pkg, 0, 0));
         PackageETA pkgETA = packageETAMap.getOrDefault(pkg, new PackageETA(pkg, 0));
 
-System.out.println(pkg.getId() + " " 
-        + new DecimalFormat("#.##").format(pkgPrice.getDiscount())+ " " 
-        + new DecimalFormat("#.##").format(pkgPrice.getPrice()) + " " 
-        + new DecimalFormat("#.##").format(pkgETA.getEta())
-);
+        System.out.println(pkg.getId() + " "
+                + new DecimalFormat("#.##").format(pkgPrice.getDiscount()) + " "
+                + new DecimalFormat("#.##").format(pkgPrice.getPrice()) + " "
+                + new DecimalFormat("#.##").format(pkgETA.getEta())
+        );
     }
 }
