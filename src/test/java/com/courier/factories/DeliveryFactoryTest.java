@@ -1,8 +1,8 @@
-package com.courier;
+package com.courier.factories;
 
-import com.courier.Package;
-import com.courier.Delivery;
-import com.courier.PricingService;
+import com.courier.models.Package;
+import com.courier.models.Delivery;
+import com.courier.services.PricingService;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

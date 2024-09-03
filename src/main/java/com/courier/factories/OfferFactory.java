@@ -1,7 +1,10 @@
-package com.courier;
+package com.courier.factories;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.courier.strategies.OfferStrategy;
+import com.courier.strategies.WeightAndDistanceBasedOffer;
 
 public class OfferFactory {
 

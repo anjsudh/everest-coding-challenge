@@ -1,5 +1,7 @@
-package com.courier;
+package com.courier.factories;
 
+import com.courier.models.Vehicle;
+import com.courier.factories.VehicleFactory;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class VehicleFactoryTest {
 

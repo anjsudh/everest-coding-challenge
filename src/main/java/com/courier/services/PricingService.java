@@ -1,4 +1,10 @@
-package com.courier;
+package com.courier.services;
+
+import com.courier.models.Delivery;
+import com.courier.models.DeliveryPrice;
+import com.courier.models.Package;
+import com.courier.models.PackagePrice;
+import com.courier.strategies.OfferStrategy;
 
 import java.util.ArrayList;
 import java.util.List;

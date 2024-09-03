@@ -1,4 +1,4 @@
-package com.courier;
+package com.courier.models;
 
 import java.util.List;
 import java.util.stream.Collectors;

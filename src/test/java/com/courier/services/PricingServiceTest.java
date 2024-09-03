@@ -1,14 +1,19 @@
-package com.courier;
+package com.courier.services;
 
-import com.courier.Delivery;
-import com.courier.Package;
-import com.courier.PricingService;
+import com.courier.models.Delivery;
+import com.courier.models.Package;
+import com.courier.models.PackagePrice;
+import com.courier.models.DeliveryPrice;
+import com.courier.services.PricingService;
+import com.courier.strategies.OfferStrategy;
+import com.courier.strategies.WeightAndDistanceBasedOffer;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class PricingServiceTest {
 

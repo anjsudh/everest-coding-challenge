@@ -1,9 +1,18 @@
-package com.courier;
+package com.courier.services;
 
+import com.courier.models.Delivery;
+import com.courier.models.Package;
+import com.courier.models.Vehicle;
+import com.courier.models.DeliveryETA;
+import com.courier.models.PackageETA;
+import com.courier.services.ETAService;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class ETAServiceTest {
 

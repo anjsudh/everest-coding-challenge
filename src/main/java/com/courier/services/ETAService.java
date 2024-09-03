@@ -1,10 +1,19 @@
-package com.courier;
+package com.courier.services;
 
-import java.util.*;
+import com.courier.models.Delivery;
+import com.courier.models.DeliveryETA;
+import com.courier.models.Package;
+import com.courier.models.PackageETA;
+import com.courier.models.Shipment;
+import com.courier.models.Vehicle;
+import com.courier.utils.MathUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import com.courier.NumberUtils;
 
 public class ETAService {
     private final PriorityQueue<Vehicle> vehicles;
@@ -26,7 +35,7 @@ public class ETAService {
             vehicle.loadPackages(packages);
             shipments.add(new Shipment(shipmentStartTime, packages, vehicle));;
             packages.forEach( p -> {
-                double packageDeliveryTime = NumberUtils.floorToTwoDecimalPlaces(p.getDistance()/ vehicle.getSpeed());
+                double packageDeliveryTime = MathUtils.floorToTwoDecimalPlaces(p.getDistance()/ vehicle.getSpeed());
                 packageETAs.add(new PackageETA(p, shipmentStartTime + packageDeliveryTime));
             });
             unassignedPackages.removeAll(packages);

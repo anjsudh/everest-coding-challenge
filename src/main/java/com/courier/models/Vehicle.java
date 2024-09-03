@@ -1,6 +1,6 @@
-package com.courier;
+package com.courier.models;
 
-import com.courier.NumberUtils;
+import com.courier.utils.MathUtils;
 import java.util.List;
 
 public class Vehicle {
@@ -29,7 +29,7 @@ public class Vehicle {
     }
 
     public void loadPackages(List<Package> packages) {
-        this.nextAvailableAt += packages.stream().mapToDouble(pkg -> NumberUtils.floorToTwoDecimalPlaces(pkg.getDistance() / speed)).max().getAsDouble() * 2;
+        this.nextAvailableAt += packages.stream().mapToDouble(pkg -> MathUtils.floorToTwoDecimalPlaces(pkg.getDistance() / speed)).max().getAsDouble() * 2;
     }
 
     public double getSpeed() {

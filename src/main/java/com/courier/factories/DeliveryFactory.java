@@ -1,9 +1,12 @@
-package com.courier;
+package com.courier.factories;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.courier.models.Delivery;
+import com.courier.models.Package;
 
 public class DeliveryFactory {
 

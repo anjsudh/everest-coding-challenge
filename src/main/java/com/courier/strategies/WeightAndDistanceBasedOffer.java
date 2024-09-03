@@ -1,4 +1,6 @@
-package com.courier;
+package com.courier.strategies;
+
+import com.courier.models.Package;
 
 public class WeightAndDistanceBasedOffer implements OfferStrategy {
     private final String code;
